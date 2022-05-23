@@ -20,3 +20,4 @@
 - Documentation : https://github.com/mathdroid/covid-19-api
 
 Örnek çalışmaya şuradan ulaşabilirsiniz.(https://world19covid.web.app/)
+![covid19tracker](https://user-images.githubusercontent.com/81770287/169916788-03ec2b86-b9c2-4bf7-8e01-8704fd626977.gif)
