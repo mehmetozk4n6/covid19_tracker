@@ -5,3 +5,26 @@
   flex-direction: column;
   padding: 20px;
 }
+.App div {
+  margin-bottom: 10px;
+}
+.cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cards > div {
+  margin: 0 0.5em;
+}
+.selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2em;
+  margin-bottom: 0;
+}
+.graphic {
+  margin: auto;
+  width: 75%;
+  margin-top: 0;
+}

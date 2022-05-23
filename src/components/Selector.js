@@ -1,33 +1,56 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  countriesSelector,
+  fetchCountries,
+  fetchCountry,
+  fetchGlobal,
+  changeCountry,
+} from "../redux/covidSlice";
 
 export default function BasicSelect() {
-  const [age, setAge] = React.useState("");
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const dispatch = useDispatch();
+  const countries = useSelector(countriesSelector);
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value);
+  useEffect(() => {
+    dispatch(fetchGlobal());
+    dispatch(fetchCountries());
+  }, [dispatch]);
+
+  const handleChange = (event) => {
+    let val = event.target.value;
+    let name = countries?.find((country) => country.iso2 === val).name;
+    setSelectedCountry(val);
+    dispatch(changeCountry(name));
+    dispatch(fetchCountry(val));
   };
-  console.log(age);
+
   return (
-    <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Age"
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
+    <div className="selector">
+      <Box sx={{ width: "50%" }}>
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">Country</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={selectedCountry}
+            label="Country"
+            onChange={handleChange}
+          >
+            {countries?.map((country, index) => (
+              <MenuItem key={index} value={country.iso2}>
+                {country.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
+    </div>
   );
 }

@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import covidSlicer from "./covidSlicer";
+import covidSlice from "./covidSlice";
 
 export const store = configureStore({
   reducer: {
-    covid: covidSlicer,
+    covid: covidSlice,
   },
 });
